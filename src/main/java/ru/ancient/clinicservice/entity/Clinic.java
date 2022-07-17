@@ -1,5 +1,7 @@
 package ru.ancient.clinicservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,15 +24,27 @@ public class Clinic {
     private String workTime;
     @Column(name = "doctorcount")
     private int doctorCont;
-    @OneToMany(targetEntity = Doctor.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "clinic_id")
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Doctor> doctorList;
+
+    public void addDoctor(Doctor doctor){
+        doctorList.add(doctor);
+        doctor.setClinic(this);
+        this.doctorCont++;
+    }
+
+    public void deleteDoctor(Doctor doctor){
+        doctorList.remove(doctor);
+        doctor.setClinic(null);
+        this.doctorCont--;
+    }
+
 
     public Clinic() {
     }
 
-    public Clinic(int id, String name, String city, String address, String callNumber, String workTime, int doctorCont) {
-        this.id = id;
+    public Clinic(String name, String city, String address, String callNumber, String workTime, int doctorCont) {
+
         this.name = name;
         this.city = city;
         this.address = address;

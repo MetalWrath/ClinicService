@@ -1,5 +1,7 @@
 package ru.ancient.clinicservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,15 +25,16 @@ public class Doctor {
     private String sex;
     @Column(name = "salary")
     private int salary;
-    @Column(name = "clinic_id")
-    private int clinicId;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "clinic_id")
+    @JsonIgnore
+    private Clinic clinic;
 
     public Doctor() {
     }
 
-    public Doctor(int id, String lastname, String firstname, String middlename, String specialization, String phoneNumber, String sex, int salary, int clinicId) {
-        this.id = id;
+    public Doctor(String lastname, String firstname, String middlename, String specialization, String phoneNumber, String sex, int salary) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -39,7 +42,14 @@ public class Doctor {
         this.phoneNumber = phoneNumber;
         this.sex = sex;
         this.salary = salary;
-        this.clinicId = clinicId;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 
     public int getId() {
@@ -106,11 +116,5 @@ public class Doctor {
         this.salary = salary;
     }
 
-    public int getClinicId() {
-        return clinicId;
-    }
 
-    public void setClinicId(int clinicId) {
-        this.clinicId = clinicId;
-    }
 }

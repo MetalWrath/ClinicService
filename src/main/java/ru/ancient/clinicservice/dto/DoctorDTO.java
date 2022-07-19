@@ -1,59 +1,22 @@
-package ru.ancient.clinicservice.entity;
+package ru.ancient.clinicservice.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import ru.ancient.clinicservice.entity.Clinic;
 
-@Entity
-@Table(name = "doctor")
-public class Doctor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+
+public class DoctorDTO {
+
     private int id;
-    @Column(name = "lastname")
     private String lastname;
-    @Column(name = "firstname")
     private String firstname;
-    @Column(name = "middlename")
     private String middlename;
-    @Column(name = "specialization")
     private String specialization;
-    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "sex")
     private String sex;
-    @Column(name = "salary")
     private int salary;
-
-    @Column(name = "clinic_id", insertable = false, updatable = false)
     private int clinicId;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "clinic_id")
-    @JsonIgnore
     private Clinic clinic;
 
-    public Doctor() {
-    }
-
-    public Doctor(String lastname, String firstname, String middlename, String specialization, String phoneNumber, String sex, int salary) {
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.specialization = specialization;
-        this.phoneNumber = phoneNumber;
-        this.sex = sex;
-        this.salary = salary;
-    }
-
-    public Clinic getClinic() {
-        return clinic;
-    }
-
-    public void setClinic(Clinic clinic) {
-        this.clinic = clinic;
-    }
 
     public int getId() {
         return id;
@@ -125,5 +88,13 @@ public class Doctor {
 
     public void setClinicId(int clinicId) {
         this.clinicId = clinicId;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
     }
 }

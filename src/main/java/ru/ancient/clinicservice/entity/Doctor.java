@@ -53,6 +53,8 @@ public class Doctor {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+        clinic.setDoctorCont(clinic.getDoctorCont()+1);
+        clinic.getDoctorList().add(this);
     }
 
     public int getId() {

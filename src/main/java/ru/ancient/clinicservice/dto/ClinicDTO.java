@@ -14,7 +14,7 @@ public class ClinicDTO {
     private String callNumber;
     private String workTime;
     private int doctorCont;
-    private List<Doctor> doctorList;
+    private List<DoctorDTO> doctorList;
 
 
     public int getId() {
@@ -73,11 +73,11 @@ public class ClinicDTO {
         this.doctorCont = doctorCont;
     }
 
-    public List<Doctor> getDoctorList() {
+    public List<DoctorDTO> getDoctorList() {
         return doctorList;
     }
 
-    public void setDoctorList(List<Doctor> doctorList) {
+    public void setDoctorList(List<DoctorDTO> doctorList) {
         this.doctorList = doctorList;
     }
 }

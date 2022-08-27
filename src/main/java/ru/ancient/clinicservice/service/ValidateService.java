@@ -6,6 +6,8 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,10 +20,14 @@ import java.io.InputStream;
 import java.util.Set;
 
 @Service
+@PropertySource("classpath:application.properties")
 public class ValidateService {
 
+    @Value("path2csv")
+    private String path;
+
     public ResponseEntity<ValidateResponseDto> validateJson(String jsonBody, String jsonSchemaName){
-        try(InputStream is = new FileInputStream(jsonSchemaName)) {
+        try(InputStream is = new FileInputStream(path+jsonSchemaName)) {
             JsonSchema schema = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909).getSchema(is);
 
             ObjectMapper mapper = new ObjectMapper();

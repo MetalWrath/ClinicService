@@ -22,13 +22,13 @@ public class ClinicRestController {
 
 
     @GetMapping("/clinics")
-    public List<ClinicDTO> getAllClinics(){
-        return clinicService.getAllClinicDTO();
+    public List<Clinic> getAllClinics(){
+        return clinicService.getAllClinics();
     }
 
     @GetMapping("/clinics/{id}")
-    public ClinicDTO getOneClinicById(@PathVariable int id){
-        return clinicService.getOneClinicDTOById(id);
+    public Clinic getOneClinicById(@PathVariable int id){
+        return clinicService.getOneClinicById(id);
     }
 
 

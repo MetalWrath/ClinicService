@@ -22,7 +22,7 @@ public interface ClinicService {
 
     List<ClinicDTO> getAllClinicDTO();
 
-    ClinicDTO parseClinicToClinicDTO(Clinic clinic);
+
 
 
 }

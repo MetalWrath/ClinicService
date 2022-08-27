@@ -96,5 +96,7 @@ public class DoctorDTO {
 
     public void setClinic(ClinicDTO clinic) {
         this.clinic = clinic;
+        clinic.setDoctorCont(clinic.getDoctorCont()+1);
+        clinic.getDoctorList().add(this);
     }
 }

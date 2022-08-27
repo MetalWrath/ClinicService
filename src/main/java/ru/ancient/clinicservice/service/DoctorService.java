@@ -22,6 +22,6 @@ public interface DoctorService {
 
     public List<DoctorDTO> getAllDoctorsDTO();
 
-    public DoctorDTO parseDoctorToDTO(Doctor doctor);
+
 
 }

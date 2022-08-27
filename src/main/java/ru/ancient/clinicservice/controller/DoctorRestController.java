@@ -7,6 +7,7 @@ import ru.ancient.clinicservice.dto.DoctorDTO;
 import ru.ancient.clinicservice.entity.Clinic;
 import ru.ancient.clinicservice.entity.Doctor;
 import ru.ancient.clinicservice.service.ClinicService;
+import ru.ancient.clinicservice.service.DTOClinicAndDoctorParserService;
 import ru.ancient.clinicservice.service.DoctorService;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class DoctorRestController {
     DoctorService doctorService;
     @Autowired
     ClinicService clinicService;
+
+    @Autowired
+    DTOClinicAndDoctorParserService dtoClinicAndDoctorParserService;
 
 
 
@@ -64,38 +68,26 @@ public class DoctorRestController {
     }
 
     @GetMapping("/doc")
-    public String getdoc(){
-//        DoctorDTO doctorDTO = new DoctorDTO();
-//        ClinicDTO clinic = clinicService.getOneClinicDTOById(1);
-//        doctorDTO.setLastname("Ivanov");
-//        doctorDTO.setFirstname("Sergey");
-//        doctorDTO.setMiddlename("Dmitrieevich");
-//        doctorDTO.setSpecialization("Urolog");
-//        doctorDTO.setPhoneNumber("89165879966");
-//        doctorDTO.setSex("male");
-//        doctorDTO.setSalary(555555);
-//        doctorDTO.setClinicId(1);
-//        doctorDTO.setClinic(clinic);
+    public Doctor getdoc(){
 
-        Clinic clinic = new Clinic("Залог Здоровья - Красные Горки", "Москва", "ул. Строителей, 25",
-                "84995684895", "8.00-22.00", 0);
+        DoctorDTO doctorDTO = new DoctorDTO();
+        ClinicDTO clinic = clinicService.getOneClinicDTOById(1);
+        doctorDTO.setLastname("Ivanov");
+        doctorDTO.setFirstname("Sergey");
+        doctorDTO.setMiddlename("Dmitrieevich");
+        doctorDTO.setSpecialization("Urolog");
+        doctorDTO.setPhoneNumber("89165879966");
+        doctorDTO.setSex("male");
+        doctorDTO.setSalary(555555);
+        doctorDTO.setClinicId(1);
+        doctorDTO.setClinic(clinic);
 
-        Clinic clinic2 = new Clinic("Залог Здоровья - Южная", "Москва", "Симферопольский бульвар, 17 к.1",
-                "84957851532", "8.00-22.00", 0);
+        Doctor doctor = dtoClinicAndDoctorParserService.parseDoctorDTOToDoctor(doctorDTO);
 
-        Clinic clinic3 = new Clinic("Залог Здоровья - Белорусская", "Москва", "ул. Лесная д.6",
-                "84956632971", "8.00-22.00", 0);
-
-        Clinic clinic4 = new Clinic("Залог Здоровья - Новогиреево", "Москва", "Вешников пер., д. 17",
-                "84995802570", "8.00-22.00", 0);
-
-        clinicService.addClinic(clinic);
-        clinicService.addClinic(clinic2);
-        clinicService.addClinic(clinic3);
-        clinicService.addClinic(clinic4);
+        doctorService.addDoctor(doctor);
 
 
-        return "dffsf";
+        return doctor;
     }
 
 

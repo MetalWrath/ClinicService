@@ -23,7 +23,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     ClinicDAO clinicDAO;
     @Autowired
-    ClinicService clinicService;
+    DTOClinicAndDoctorParserService dtoClinicAndDoctorParserService;
 
     @Override
     @Transactional
@@ -32,12 +32,14 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Transactional
     public List<Doctor> getAllDoctors() {
 
         return doctorDAO.getAllDoctors();
     }
 
     @Override
+    @Transactional
     public Doctor addDoctor(Doctor doctor) {
         doctorDAO.addDoctor(doctor);
 
@@ -45,6 +47,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Transactional
     public Doctor deleteDoctor(int id) {
         Doctor doctor = doctorDAO.getOneDoctorById(id);
         doctorDAO.deleteDoctor(id);
@@ -53,6 +56,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Transactional
     public Doctor updateDoctor(Doctor doctor) {
         doctorDAO.updateDoctor(doctor);
 
@@ -60,6 +64,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    @Transactional
     public DoctorDTO getOneDoctorDTOById(int id) {
         Doctor doctor = doctorDAO.getOneDoctorById(id);
 
@@ -68,10 +73,11 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
 
-        return parseDoctorToDTO(doctor);
+        return dtoClinicAndDoctorParserService.parseDoctorToDTO(doctor);
     }
 
     @Override
+    @Transactional
     public List<DoctorDTO> getAllDoctorsDTO() {
         List<Doctor> doctorList = doctorDAO.getAllDoctors();
         if (doctorList == null) {
@@ -79,28 +85,8 @@ public class DoctorServiceImpl implements DoctorService {
         }
         List<DoctorDTO> doctorDTOList = new ArrayList<>();
         for (Doctor doctor : doctorList) {
-            doctorDTOList.add(parseDoctorToDTO(doctor));
+            doctorDTOList.add(dtoClinicAndDoctorParserService.parseDoctorToDTO(doctor));
         }
         return doctorDTOList;
     }
-
-    @Override
-    public DoctorDTO parseDoctorToDTO(Doctor doctor) {
-
-        DoctorDTO doctorDTO = new DoctorDTO();
-        ClinicDTO clinic = clinicService.getOneClinicDTOById(doctor.getClinicId());
-        doctorDTO.setId(doctor.getId());
-        doctorDTO.setLastname(doctor.getLastname());
-        doctorDTO.setFirstname(doctor.getFirstname());
-        doctorDTO.setMiddlename(doctor.getLastname());
-        doctorDTO.setSpecialization(doctor.getSpecialization());
-        doctorDTO.setPhoneNumber(doctor.getPhoneNumber());
-        doctorDTO.setSex(doctor.getSex());
-        doctorDTO.setSalary(doctor.getSalary());
-        doctorDTO.setClinicId(doctor.getClinicId());
-        doctorDTO.setClinic(clinic);
-
-        return doctorDTO;
-    }
-
 }

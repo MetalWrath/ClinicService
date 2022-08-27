@@ -19,6 +19,9 @@ public class ClinicServiceImpl implements ClinicService {
     @Autowired
     ClinicDAO clinicDAO;
 
+    @Autowired
+    DTOClinicAndDoctorParserService dtoClinicAndDoctorParserService;
+
     @Override
     @Transactional
     public Clinic getOneClinicById(int id) {
@@ -66,7 +69,7 @@ public class ClinicServiceImpl implements ClinicService {
         if (clinic == null) {
             throw new ClinicNotFoundByIdException("Clinic with id: " + id + " not found");
         }
-        return parseClinicToClinicDTO(clinic);
+        return dtoClinicAndDoctorParserService.parseClinicToClinicDTO(clinic);
     }
 
     @Override
@@ -77,25 +80,11 @@ public class ClinicServiceImpl implements ClinicService {
         }
         List<ClinicDTO> clinicDTOList = new ArrayList<>();
         for (Clinic clinic : clinicList) {
-            clinicDTOList.add(parseClinicToClinicDTO(clinic));
+            clinicDTOList.add(dtoClinicAndDoctorParserService.parseClinicToClinicDTO(clinic));
         }
         return clinicDTOList;
     }
 
-    @Override
-    public ClinicDTO parseClinicToClinicDTO(Clinic clinic) {
-        ClinicDTO clinicDTO = new ClinicDTO();
-
-        clinicDTO.setId(clinic.getId());
-        clinicDTO.setName(clinic.getName());
-        clinicDTO.setCity(clinic.getCity());
-        clinicDTO.setAddress(clinic.getAddress());
-        clinicDTO.setCallNumber(clinic.getCallNumber());
-        clinicDTO.setWorkTime(clinic.getWorkTime());
-        clinicDTO.setDoctorCont(clinic.getDoctorCont());
-        clinicDTO.setDoctorList(clinic.getDoctorList());
-
-
-        return clinicDTO;
-    }
 }
+
+

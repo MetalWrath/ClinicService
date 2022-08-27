@@ -15,7 +15,7 @@ public class DoctorDTO {
     private String sex;
     private int salary;
     private int clinicId;
-    private Clinic clinic;
+    private ClinicDTO clinic;
 
 
     public int getId() {
@@ -90,11 +90,11 @@ public class DoctorDTO {
         this.clinicId = clinicId;
     }
 
-    public Clinic getClinic() {
+    public ClinicDTO getClinic() {
         return clinic;
     }
 
-    public void setClinic(Clinic clinic) {
+    public void setClinic(ClinicDTO clinic) {
         this.clinic = clinic;
     }
 }

@@ -18,7 +18,7 @@ public class Clinic {
     private String city;
     @Column(name = "address")
     private String address;
-    @Column(name = "callnumber")
+    @Column(name = "call_number")
     private String callNumber;
     @Column(name = "worktime")
     private String workTime;

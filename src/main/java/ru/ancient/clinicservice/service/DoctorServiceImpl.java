@@ -28,7 +28,14 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     @Transactional
     public Doctor getOneDoctorById(int id) {
-        return doctorDAO.getOneDoctorById(id);
+        Doctor doctor = doctorDAO.getOneDoctorById(id);
+
+        if (doctor == null) {
+            throw new DoctorNotFoundByIdException("Doctor with id: " + id + " not found");
+        }
+
+
+        return doctor;
     }
 
     @Override

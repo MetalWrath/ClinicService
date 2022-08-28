@@ -1,14 +1,17 @@
 package ru.ancient.clinicservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ancient.clinicservice.dto.ClinicDTO;
 import ru.ancient.clinicservice.dto.DoctorDTO;
+import ru.ancient.clinicservice.dto.ValidateResponseDto;
 import ru.ancient.clinicservice.entity.Clinic;
 import ru.ancient.clinicservice.entity.Doctor;
 import ru.ancient.clinicservice.service.ClinicService;
 import ru.ancient.clinicservice.service.DTOClinicAndDoctorParserService;
 import ru.ancient.clinicservice.service.DoctorService;
+import ru.ancient.clinicservice.service.ValidateService;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class DoctorRestController {
 
     @Autowired
     DTOClinicAndDoctorParserService dtoClinicAndDoctorParserService;
+
+    @Autowired
+    ValidateService validateService;
 
 
 
@@ -70,26 +76,39 @@ public class DoctorRestController {
     @GetMapping("/doc")
     public Doctor getdoc(){
 
-        DoctorDTO doctorDTO = new DoctorDTO();
-        ClinicDTO clinic = clinicService.getOneClinicDTOById(1);
-        doctorDTO.setLastname("Ivanov");
-        doctorDTO.setFirstname("Sergey");
-        doctorDTO.setMiddlename("Dmitrieevich");
-        doctorDTO.setSpecialization("Urolog");
-        doctorDTO.setPhoneNumber("89165879966");
-        doctorDTO.setSex("male");
-        doctorDTO.setSalary(555555);
-        doctorDTO.setClinicId(1);
-        doctorDTO.setClinic(clinic);
+//        DoctorDTO doctorDTO = new DoctorDTO();
+//        ClinicDTO clinic = clinicService.getOneClinicDTOById(1);
+//        doctorDTO.setLastname("Ivanov");
+//        doctorDTO.setFirstname("Sergey");
+//        doctorDTO.setMiddlename("Dmitrieevich");
+//        doctorDTO.setSpecialization("Urolog");
+//        doctorDTO.setPhoneNumber("89165879966");
+//        doctorDTO.setSex("male");
+//        doctorDTO.setSalary(555555);
+//        doctorDTO.setClinicId(1);
+//        doctorDTO.setClinic(clinic);
+//
+//        Doctor doctor = dtoClinicAndDoctorParserService.parseDoctorDTOToDoctor(doctorDTO);
+//
+//        doctorService.addDoctor(doctor);
 
-        Doctor doctor = dtoClinicAndDoctorParserService.parseDoctorDTOToDoctor(doctorDTO);
 
-        doctorService.addDoctor(doctor);
-
-
-        return doctor;
+        return null;
     }
 
+    @PostMapping("/testdoc")
+    public Doctor getDoctorValid(@RequestBody String jsonBody){
+        ValidateResponseDto validateResponseDto =
+                validateService.validateJson(jsonBody, "DoctorSchema.json");
+        if (validateResponseDto.getValidationMessages().size()>0){
+            System.out.println("Bad json. very bad json!");
+        }else {
+            System.out.println(jsonBody);
+        }
+
+
+        return null;
+    }
 
 }
 //endpoints:

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "firstname": {
+      "type": "string"
+    },
+    "middlename": {
+      "type": "string"
+    },
+    "specialization": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "sex": {
+      "type": "string"
+    },
+    "salary": {
+      "type": "integer"
+    },
+    "clinicId": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "lastname",
+    "firstname",
+    "specialization",
+    "phoneNumber",
+    "sex",
+    "salary",
+    "clinicId"
+  ]
+}

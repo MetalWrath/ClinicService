@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "callNumber": {
+      "type": "string"
+    },
+    "workTime": {
+      "type": "string"
+    },
+    "doctorCont": {
+      "type": "integer"
+    },
+    "doctorList": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name",
+    "city",
+    "address",
+    "callNumber",
+    "workTime",
+    "doctorCont"
+  ]
+}

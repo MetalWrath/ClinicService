@@ -20,8 +20,8 @@ public class GlobalExceptionHandlerClinic {
     public ResponseEntity<ExceptionDataDTO> clinicNotFoundById(Exception exception){
         ExceptionDataDTO exceptionDataDTO = new ExceptionDataDTO();
         exceptionDataDTO.setDescription(exception.getMessage());
-        exceptionDataDTO.setHttpStatus(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(exceptionDataDTO, HttpStatus.BAD_REQUEST);
+        exceptionDataDTO.setHttpStatus(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(exceptionDataDTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
